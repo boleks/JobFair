@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" />
+        <!-- DatePicker JavaScript & CSS -->
+        <h:outputScript library="js" name="jquery-1.12.4.js"/>
+        <h:outputScript library="js" name="jquery-ui-1.12.1.js"/>
+        <h:outputStylesheet library="css" name="jquery-ui.css"/>  
+
+        <title>Job Fair - Kompanija - Kreiraj konkurs</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraKompanija()}" />
+        </f:metadata> 
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "2010:2031"
+                });
+            });
+
+        </script>
+
+    </h:head>
+    <f:event listener="#{controllerKompanijaKonkurs.sesijaKorisnikID()}" type="preRenderView" />
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 ">
+                            <h3 class="offset-4 col-6">Kreiraj konkurs:</h3>
+                            <h:form id="kompanija-kreiraj-konkurs" enctype="multipart/form-data">
+                                <h:inputHidden class="col-12" value="#{controllerKompanijaKonkurs.kompanijaKonkurs.idKompanija}"/>
+                                <div class="row ">                                    
+
+                                    <div class="col-12 mb-3"> 
+                                        <h:outputLabel for="nazivPozicija">Naziv konkursa/Pozicija:</h:outputLabel>  
+                                        <h:inputText class="form-control"  id="nazivPozicija" value="#{controllerKompanijaKonkurs.kompanijaKonkurs.nazivPozicija}" required="true" requiredMessage="Naziv konkursa je obavezno polje">
+                                            <f:ajax event="change"/>
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-12 mb-3"> 
+                                        <h:outputLabel for="tekstKonkursa">Tekst konkursa:</h:outputLabel>
+
+                                        <h:inputTextarea class="form-control preformatted" cols="10" rows="10" id="tekstKonkursa" value="#{controllerKompanijaKonkurs.kompanijaKonkurs.tekstKonkursa}" required="true" requiredMessage="Tekst konkursa je obavezno polje">
+                                            <f:ajax event="change"/>
+                                        </h:inputTextarea>                                                                                
+                                    </div>
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="rokZaPrijavu">Rok za prijavu: (dd-mm-gggg)</h:outputLabel>
+                                        <h:inputText class="form-control datepicker" id="rokZaPrijavu" value="#{controllerKompanijaKonkurs.kompanijaKonkurs.rokZaPrijavu}" required="true" requiredMessage="Rok za prijavu je obavezno polje">
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+
+                                    </div>
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="tip">Tip konkursa:</h:outputLabel>  
+                                        <h:selectOneMenu class="custom-select d-block w-100" id="tip" value="#{controllerKompanijaKonkurs.kompanijaKonkurs.tip}" required="true" requiredMessage="Tip je obavezno polje">
+                                            <f:selectItem itemValue="P" itemLabel="Praksa" /> 
+                                            <f:selectItem itemValue="Z" itemLabel="Zaposlenje" /> 
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="prilog">Prilog: (opciono)</h:outputLabel>  
+                                        <h:inputFile id="prilog" value="#{controllerKompanijaKonkurs.konkursPrilog}">
+                                            <f:ajax event="change"/>
+                                        </h:inputFile>
+                                    </div>
+                                    <div class="col-12">
+                                        <hr/>
+                                    </div>    
+
+                                    <div class="col-12 mt-3 mb-3 text-center">
+                                        <h:commandButton class="btn btn-danger mr-5" value="Odustani" onclick="history.go(-1);return false;"/>
+                                        <h:commandButton class="btn btn-primary ml-3" value="Snimi Konkurs" action="#{controllerKompanijaKonkurs.kreirajKonkurs()}" onclick="if (confirm('Da li ste sigurni da zelite da kreirate Konkurs?') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="kompanija-kreiraj-konkurs" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+                                </div>
+
+                            </h:form>
+
+                        </div>                                                                                    
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+    </h:body>
+</html>

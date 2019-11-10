@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair - Pregledaj - CV</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraKompanija()}" />
+        </f:metadata>  
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+                    <h:form id="kompania-pregledaj-cv">
+                        <div class="row bg-white ml-2 rounded-sm shadow-sm">
+
+                            <div class="col-12 pt-4 bg-light pb-3 border border-light rounded shadow-sm">
+
+                                <h3 class="text-center">Pregled CV:</h3>
+
+                                <h4 class="mt-3">Osnovni podaci:</h4>
+                                <hr class="mb-3"/>
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <strong>Ime i prezime: </strong> <h:outputText value="#{controllerKompanijaPregledKonkursa.cvPrijave.ime} "/> <h:outputText value=" #{controllerKompanijaPregledKonkursa.cvPrijave.prezime}"/>
+                                    </div>
+                                    <div class="col-12 mb-1">
+                                        <strong>Email: </strong> <h:outputText value="#{controllerKompanijaPregledKonkursa.cvPrijave.email}"/>
+                                    </div>
+                                    <div class="col-12 mb-1">
+                                        <strong>Telefon: </strong> <h:outputText value="#{controllerKompanijaPregledKonkursa.cvPrijave.telefon}"/>
+                                    </div>
+                                    <div class="col-8 mb-1">
+                                        <strong>Mesto stanovanja: </strong> <h:outputText value="#{controllerKompanijaPregledKonkursa.cvPrijave.grad}"/>
+                                    </div>                                    
+                                </div>
+                            </div>
+
+                            <div class="col-12 bg-light mt-3 pb-3 border border-light rounded shadow-sm">
+
+                                <h4 class="mt-3">Obrazovanje:</h4>
+                                <hr class="mb-3"/>
+                                <div class="row">
+                                    <ui:repeat var="obr" value="#{controllerKompanijaPregledKonkursa.cvPrijave.obrazivanje}">
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Naziv skole: </strong> <h:outputText value="#{obr.nazivSkole}"/>
+
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Smer: </strong> <h:outputText value="#{obr.smer}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum upisa: </strong> 
+                                            <h:outputText value="#{obr.datumOd}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum diplomiranja: </strong> 
+                                            <h:outputText value="#{obr.datumDo}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Grad: </strong> <h:outputText value="#{obr.grad}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Zemlja: </strong> <h:outputText value="#{obr.zemlja}"/>                                                
+                                        </div>                                        
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+
+                                    </ui:repeat>
+
+                                    <hr class="mb-2"/>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 bg-light mt-3 pb-3 border border-light rounded shadow-sm">
+
+                                <h4 class="mt-3">Radno iskustvo:</h4>
+                                <hr class="mb-3"/>
+                                <div class="row">   
+                                    <ui:repeat var="radno" value="#{controllerKompanijaPregledKonkursa.cvPrijave.radnoIskustvo}">
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Kompanija: </strong> <h:outputText value="#{radno.kompanija}"/>
+
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Pozicija: </strong> <h:outputText value="#{radno.pozicija}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum pocetka rada: </strong> 
+                                            <h:outputText value="#{radno.datumOd}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum prestanka rada: </strong> 
+                                            <h:outputText value="#{radno.datumDo}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Grad: </strong> <h:outputText value="#{radno.grad}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Zemlja: </strong> <h:outputText value="#{radno.zemlja}"/>                                                
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <strong>Opis Zaduzenja: </strong><br/>
+                                            <h:outputText class="preformatted" value="#{radno.opisZaduzenja}"/>
+                                        </div>                                        
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+
+                                    </ui:repeat>                                                                    
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 bg-light mt-3 pb-3 border border-light rounded shadow-sm">
+
+                                <h4 class="mt-3">Poznavanje stranih jezika:</h4>
+                                <hr class="mb-3"/>
+                                <div class="row">
+
+                                    <ui:repeat var="jezik" value="#{controllerKompanijaPregledKonkursa.cvPrijave.jezik}">
+
+                                        <div class="col-4 mt-4">
+                                            <strong>Jezik: </strong> <h:outputText value="#{jezik.naziv}"/>
+
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <strong>Nivo: </strong> <h:outputText value="#{jezik.nivo}"/>                                                
+                                        </div>                                        
+
+                                        <div class="col-12 text-center">
+                                            <hr class="col-11 mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+
+                                </div>
+
+                            </div>
+                            <div class="col-12 bg-light mt-3 pb-3 border border-light rounded shadow-sm">
+
+                                <h4 class="mt-3">Kumpjuterske vestine:</h4>
+                                <hr class="mb-3"/>
+                                <div class="row">
+
+                                    <ui:repeat var="vestina" value="#{controllerKompanijaPregledKonkursa.cvPrijave.kompjuterskeVestine}">
+
+                                        <div class="col-4 mt-4">
+                                            <strong>Program: </strong> <h:outputText value="#{vestina.program}"/>
+
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <strong>Nivo: </strong> <h:outputText value="#{vestina.nivo}"/>                                                
+                                        </div>                                        
+
+                                        <div class="col-12 text-center">
+                                            <hr class="col-11 mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-12 bg-light mt-3 pb-3 border border-light rounded shadow-sm">
+
+                                <h4 class="mt-3">Ostale vestine:</h4>
+                                <hr class="mb-3"/>
+                                <div class="row">
+                                    <div class="ml-3 col-8 border border-info rounded">                                    
+                                        <h:outputText value="#{controllerKompanijaPregledKonkursa.cvPrijave.ostaleVestine}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <div class="row">
+
+                                    <div class="col-12 mb-4 mt-4 text-center">
+                                        <h:commandButton class="btn btn-primary" value="Pregledaj ostale prijave" onclick="history.go(-1);return false;"/>
+                                    </div>                                   
+                                </div>
+                            </div>
+
+                        </div>
+                    </h:form>
+
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>            
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+    </h:body>
+</html>

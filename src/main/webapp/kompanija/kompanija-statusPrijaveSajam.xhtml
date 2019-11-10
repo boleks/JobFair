@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pregled prijava na sajam</title>        
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraKompanija()}" />
+            <f:event type="preRenderView" listener="#{controllerSajamPrijava.dohvatiSvePrijaveKompanijeNaSajam()}"/>            
+        </f:metadata> 
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+
+                        <div class="col-12 mt-4 mb-3">
+                            <h3 class="text-center mb-3"> Pregled prijava na konkurs:</h3>
+                            <h:form id="pregled-prijava-na-konkurs" enctype="multipart/form-data">
+                                <h:dataTable class="table table-striped text-center" var="prijava" value="#{controllerSajamPrijava.prijaveKompanija}" headerClass="align-middle" columnClasses="align-middle,align-middle,align-middle,align-middle">
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            ID:
+                                        </f:facet>
+                                        #{prijava.idPrijava}
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Sajam naziv:
+                                        </f:facet >
+                                        #{controllerSajamPrijava.dohvatiNazivSajma(prijava.idSajam)}                                        
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Status:
+                                        </f:facet>
+                                        #{prijava.status}                                        
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Napomena:
+                                        </f:facet>
+                                        #{prijava.napomena}
+
+                                    </h:column>                                    
+
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+
+

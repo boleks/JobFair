@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pretraga Konkursa</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+        </f:metadata>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">  
+
+
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4">
+                            <h3 class="text-center">Pretraga Konkursa:</h3>    
+                        </div>                                                    
+                        <div class="col-12 mb-3">
+
+                            <h:form id="student-pretraga-konkursa" enctype="multipart/form-data">
+                                <div class="row">                                    
+
+                                    <div class="col-12 mt-2 mb-3"> 
+                                        <h:outputLabel for="konkurs">Naziv konkursa (pozicije): </h:outputLabel>  
+                                        <h:inputText class="form-control" id="konkurs" value="#{controllerStudentPretraga.nazivKonkursa}"/>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="kompanija">Naziv kompanije:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="kompanija" value="#{controllerStudentPretraga.nazivKompanijeKonkurs}"/>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+
+
+                                        <h:outputLabel for="tipKonkusa">Tip konkursa:</h:outputLabel><br/>
+
+                                        <div class="form-check form-check-inline mt-1">
+                                            <h:selectManyCheckbox id="tipKonkusa" class="ml-3" enabledClass="mr-3 ml-1" value="#{controllerStudentPretraga.tipKonkusa}">
+
+                                                <f:selectItem class="form-check-input ml-3" itemLabel="Praksa" itemValue="P" />                                            
+                                                <f:selectItem class="form-check-input ml-3" itemLabel="Zaposlenje" itemValue="Z"/>                                                                                            
+                                            </h:selectManyCheckbox>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-12 mb-3">
+                                        <h:commandButton class="btn btn-primary ml-3" value="Pretrazi" action="#{controllerStudentPretraga.pretragaKonkursa()}">
+
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="student-pretraga-konkursa" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+
+                                </div>
+
+                            </h:form>
+
+                        </div>                                                                                    
+                    </div>
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm mt-4">
+
+
+                        <h:outputText rendered="#{controllerStudentPretraga.kompanijeRezultat == null}">Unesite parametre za pretragu</h:outputText>
+                        <h:outputText rendered="#{controllerStudentPretraga.kompanijeRezultat != null}">Nije null</h:outputText>
+                        <h:form id="student-pretraga-konkursa-pregled">
+                            <div class="col-12">
+                                <ui:repeat id="konkurs" value="#{controllerStudentPretraga.konkursiRezultat}" var="konkurs">
+                                    <div class="row">
+                                        <div class="col-12 mb-1 mt-3">
+                                            <h4><strong>Naziv konkursa: </strong> <h:outputText value="#{konkurs.nazivPozicija}"/></h4>
+                                            <hr class="mb-3"/>
+                                        </div>
+
+                                        <div class="col-6 mb-1"> 
+                                            <strong>Kompanija: </strong> <h:outputText value="#{controllerStudentPretraga.dohvatiKompaniju(konkurs.idKompanija).naziv}"/>
+                                        </div>
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Tip konkursa: </strong>
+                                            <h:outputText rendered="#{konkurs.tip == 'P'}" value="Praksa"/>
+                                            <h:outputText rendered="#{konkurs.tip == 'Z'}" value="Zapslenje"/>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Rok za konkurisanje: </strong> 
+                                            <h:outputText value="#{konkurs.rokZaPrijavu}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                        <div class="offset-3 col-2">
+                                            <h:commandButton value="Opsirnije" class="btn btn-primary ml-3 mt-3" action="#{controllerStudentPretraga.opsirnijeKonkurs(konkurs)}"/>
+
+                                        </div>
+                                        <div class="col-12">
+                                            <hr class="mb-2"/>
+                                        </div>
+
+                                    </div>
+                                </ui:repeat>
+
+                            </div>
+                        </h:form>
+
+
+                    </div>
+
+                </div>
+
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+

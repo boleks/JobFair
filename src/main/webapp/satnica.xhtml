@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Satnica</title>
+
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-light m-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 mb-3">
+                            <h2 class="text-center">Satnica:</h2>
+                        </div>
+
+                        <h:dataTable var="satnica" value="#{controllerPokrovitelji.satnica}" class="table table-striped">
+
+                            <h:column >
+                                <f:facet name="header">
+                                    Datum:
+                                </f:facet>
+                                #{satnica.datum}
+                            </h:column>
+
+                            <h:column >
+                                <f:facet name="header">
+                                    Vreme:
+                                </f:facet>
+                                #{satnica.vreme}
+                            </h:column>
+
+                            <h:column >
+                                <f:facet name="header">
+                                    Tip:
+                                </f:facet>
+                                #{satnica.tip}
+                            </h:column>
+
+                            <h:column >
+                                <f:facet name="header">
+                                    Kompanija:
+                                </f:facet>
+                                #{controllerPokrovitelji.dohvatiImeKompanijeZaSatnicu(satnica.idSatnica)}
+                            </h:column>
+
+                        </h:dataTable>
+
+                    </div>
+
+
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+
+
+
+
+

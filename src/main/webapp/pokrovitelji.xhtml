@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pokrovitelji</title>
+
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-12 mt-4">
+
+                    <div class="row bg-light m-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 mb-3">
+                            <h2 class="text-center">Pokrovitelji:</h2>
+                        </div>
+
+                        <ui:repeat value="#{controllerPokrovitelji.paketi}" var="paket">
+                            <div class="col-12 text-center">
+                                <h4>#{paket.naziv}</h4>
+                            <hr/>
+                            </div>
+                            <div class="col-12">
+                                <div class="row d-flex justify-content-center">
+
+                                    <ui:repeat value="#{controllerPokrovitelji.dohvatiKompanije(paket.idPaket)}" var="pokrovitelj">
+
+                                        <div class="col-4 d-flex justify-content-center align-items-center">
+                                            <div class="pokrovitelji align-items-center">
+                                            <h:graphicImage class="img-fluid p-2 justify-content-center" value="/resources/slike/#{pokrovitelj.slika}"/>
+                                            </div>
+                                        </div>
+
+                                    </ui:repeat>
+                                </div>
+                                <hr/>
+                            </div>
+
+                        </ui:repeat>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+                
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        
+    </h:body>
+</html>
+
+
+
+
+

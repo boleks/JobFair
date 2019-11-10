@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" />
+        <!-- DatePicker JavaScript & CSS -->
+        <h:outputScript library="js" name="jquery-1.12.4.js"/>
+        <h:outputScript library="js" name="jquery-ui-1.12.1.js"/>
+        <h:outputStylesheet library="css" name="jquery-ui.css"/> 
+
+        <title>JobFair - Sajam 2019</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraAdministrator()}" />
+        </f:metadata>
+
+        <!-- DatePicker settings -->
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "2010:2031"
+                });
+            });
+
+        </script>
+    </h:head>
+
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header">
+                <ui:include src="/template/headerTemplate.xhtml" ></ui:include>
+            </ui:insert>
+        </div> 
+
+
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-white ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 pt-4 bg-light pb-3 border border-light rounded shadow-sm">
+                            <h3 class="text-center">Kreiraj  Sajam</h3>
+                            <h:form id="admin-kreiraj-sajam" enctype="multipart/form-data">
+                                <div class="row ">                                    
+
+                                    <div class="col-12 mb-3"> 
+                                        <h:outputLabel for="naziv">Naziv:</h:outputLabel>  
+                                        <h:inputText class="form-control"  id="naziv" value="#{controllerAdminKreirajSajam.kreirajSajam.naziv}" required="true" requiredMessage="Naziv je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for= "datumOd">Datum od: (dd-mm-gggg)</h:outputLabel>  
+                                        <h:inputText class="form-control datepicker" id="datumOd" value="#{controllerAdminKreirajSajam.kreirajSajam.datumOd}" required="true" requiredMessage="Datum od  je obavezno polje">
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="datumDo">Datum do: (dd-mm-gggg)</h:outputLabel>
+                                        <h:inputText class="form-control datepicker" id="datumDo" value="#{controllerAdminKreirajSajam.kreirajSajam.datumDo}" required="true" requiredMessage="Datum do je obavezan je obavezno polje">
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+                                    </div>
+
+
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="datumStudent">Datum za prijavu Studenta: (dd-mm-gggg)</h:outputLabel>  
+                                        <h:inputText class="form-control datepicker" id="datumStudent" value="#{controllerAdminKreirajSajam.kreirajSajam.datumStudent}" required="true" requiredMessage="Datum Studentje obavezno polje">                                        
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="datumKompanija">Datum za prijavu Kompanija: (dd-mm-gggg)</h:outputLabel>  
+                                        <h:inputText class="form-control datepicker" id="datumKompanija" value="#{controllerAdminKreirajSajam.kreirajSajam.datumKompanija}" required="true" requiredMessage="Datum Kompanija obavezno polje">                                        
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <h:outputLabel for="osnovneInformacije">Osnovne Informacije:</h:outputLabel>
+                                        <h:inputTextarea rows="8" class="form-control" id="osnovneInformacije" value="#{controllerAdminKreirajSajam.kreirajSajam.osnovneInformacije}" required="true" requiredMessage="Osnovne informacije obavezan je obavezno polje">
+
+                                        </h:inputTextarea>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="logo">Logo sajma:</h:outputLabel> 
+                                        <h:inputFile id="logo" class="btn" value="#{controllerAdminKreirajSajam.sajamSlika}" required="true" requiredMessage=" Logo je obavezno polje"/>                                                                                
+                                    </div>
+                                    <div class="col-12">
+                                        <hr class="mb-3"/>
+                                    </div>
+
+                                    <div class="col-6 mb-4 mt-4 text-center">
+                                        <h:commandButton class="btn btn-danger" value="Odustani" onclick="history.go(-1);return false;"/>
+                                    </div>
+                                    <div class="col-6 mb-4 mt-4 text-center">    
+
+                                        <h:commandButton class="btn btn-primary" value="Korak 2" action="#{controllerAdminKreirajSajam.sajamKorakDva()}" onclick="if (confirm('Da li ste ispravno uneli sve podatke?') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+                                    </div>                                    
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="admin-kreiraj-sajam" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+                                </div>                            
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni">
+                        <ui:include src="/template/desniMeniTemplate.xhtml"></ui:include>
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+

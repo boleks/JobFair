@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair - Student - Kreiraj CV</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+            <f:event listener="#{controllerStudentCV.sesijaKorisnikID()}" type="preRenderView" />
+        </f:metadata>  
+    </h:head>
+
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-white ml-2 rounded-sm shadow-sm">
+                        <h:form id="student-kreiraj-cv" enctype="multipart/form-data">
+                            <div class="col-12 pt-4 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h3 class="text-center">Kreiraj CV:</h3>
+
+                                <h:inputHidden value="#{controllerStudentCV.studentCV.idKorisnik}"/>
+                                <div class="row">
+
+                                    <div class="col-12 pb-3">
+                                        <h4 class="mt-3">Osnovni podaci:</h4>
+                                        <hr class="mb-3"/>
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <h:outputLabel for="ime">Ime:</h:outputLabel>  
+                                                <h:inputText class="form-control"  id="ime" value="#{controllerStudentCV.studentCV.ime}" required="true" requiredMessage="Ime je obavezno polje">
+                                                    <f:ajax event="change"/>
+                                                </h:inputText>
+                                            </div>
+                                            <div class="col-6 mb-3"> 
+                                                <h:outputLabel for="prezime">Prezime:</h:outputLabel>  
+                                                <h:inputText class="form-control" id="prezime" value="#{controllerStudentCV.studentCV.prezime}" required="true" requiredMessage="Prezime je obavezno polje">
+                                                    <f:ajax event="change"/>
+                                                </h:inputText>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h:outputLabel for="email">Email:</h:outputLabel>  
+                                                <h:inputText class="form-control" id="email" value="#{controllerStudentCV.studentCV.email}" required="true" requiredMessage="Email je obavezno polje">
+                                                    <f:ajax event="change"/>
+                                                </h:inputText>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h:outputLabel for="telefon">Telefon:</h:outputLabel>  
+                                                <h:inputText class="form-control" id="telefon" value="#{controllerStudentCV.studentCV.telefon}" required="true" requiredMessage="Telefon je obavezno polje">
+                                                    <f:ajax event="change"/>
+                                                </h:inputText>
+                                            </div>
+
+                                            <div class="col-6 mb-3">
+                                                <h:outputLabel for="grad">Grad:</h:outputLabel>  
+                                                <h:inputText class="form-control" id="grad" value="#{controllerStudentCV.studentCV.grad}" required="true" requiredMessage="Grad je obavezno polje">
+                                                    <f:ajax event="change"/>
+                                                </h:inputText>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12 mt-3 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h4 class="mt-3">Obrazovanje:</h4>                                        
+                                <hr class="mb-3"/>
+                                <h:outputText rendered="#{empty controllerStudentCV.obrazovanjeLista}" value="Nema unetih obrazovanja."/>                                       
+
+                                <div class="row">
+                                    <ui:repeat var="obr" value="#{controllerStudentCV.obrazovanjeLista}" rendered="#{not empty controllerStudentCV.obrazovanjeLista}">
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Naziv skole: </strong> <h:outputText value="#{obr.nazivSkole}"/>
+
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Smer: </strong> <h:outputText value="#{obr.smer}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum upisa: </strong> 
+                                            <h:outputText value="#{obr.datumOd}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum diplomiranja: </strong> 
+                                            <h:outputText value="#{obr.datumDo}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Grad: </strong> <h:outputText value="#{obr.grad}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Zemlja: </strong> <h:outputText value="#{obr.zemlja}"/>                                                
+                                        </div>
+                                        <div class="offset-8 col-4 mb-1">
+                                            <h:commandButton value="Obrisi" class="btn btn-danger ml-3 mt-3" action="#{controllerStudentCV.obrisiObrazovanjeIzListe(obr)}"/>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+                                    <div class="offset-8 col-4">
+                                        <h:commandLink class="btn btn-primary ml-3 mt-3" action="#{controllerStudentCV.dodajObrazovanjeLink()}" value="Dodaj obazovanje"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 mt-3 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h4 class="mt-3">Radno Iskustvo:</h4>
+                                <hr class="mb-3"/>
+                                <h:outputText rendered="#{empty controllerStudentCV.radnoIskustvoLista}" value="Nema unetih radnih iskustva."/>
+
+                                <div class="row">
+                                    <ui:repeat var="radno" value="#{controllerStudentCV.radnoIskustvoLista}" rendered="#{not empty controllerStudentCV.radnoIskustvoLista}">
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Kompanija: </strong> <h:outputText value="#{radno.kompanija}"/>
+
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Pozicija: </strong> <h:outputText value="#{radno.pozicija}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum pocetka rada: </strong> 
+                                            <h:outputText value="#{radno.datumOd}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Datum prestanka rada: </strong> 
+                                            <h:outputText value="#{radno.datumDo}">
+                                                <f:convertDateTime pattern = "dd-MM-yyyy" />
+                                            </h:outputText>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Grad: </strong> <h:outputText value="#{radno.grad}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Zemlja: </strong> <h:outputText value="#{radno.zemlja}"/>                                                
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <strong>Opis Zaduzenja: </strong><br/>
+                                            <h:outputText class="preformatted" value="#{radno.opisZaduzenja}"/>
+                                        </div>
+                                        <div class="offset-8 col-4 mb-1">
+                                            <h:commandButton value="Obrisi" class="btn btn-danger ml-3 mt-3" action="#{controllerStudentCV.obrisiRadnoIskustvoIzListe(radno)}"/>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+                                    <div class="offset-8 col-4">
+                                        <h:commandLink class="btn btn-primary ml-3 mt-3" action="#{controllerStudentCV.dodajRanoIskustvoLink()}" value="Dodaj radno iskustvo" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h4 class="mt-3">Znanje stranih jezika:</h4>
+                                <hr class="mb-3"/>
+                                <h:outputText rendered="#{empty controllerStudentCV.jezikLista}" value="Nema unetih poznavanja jezika."/>
+                                <div class="row">
+                                    <ui:repeat var="jezik" value="#{controllerStudentCV.jezikLista}" rendered="#{not empty controllerStudentCV.jezikLista}">
+
+                                        <div class="col-4 mt-4">
+                                            <strong>Jezik: </strong> <h:outputText value="#{jezik.naziv}"/>
+
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <strong>Nivo: </strong> <h:outputText value="#{jezik.nivo}"/>                                                
+                                        </div>
+
+                                        <div class="col-4">
+                                            <h:commandButton value="Obrisi" class="btn btn-danger ml-3 mt-3" action="#{controllerStudentCV.obrisiJezikIzListe(jezik)}"/>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+                                    <div class="offset-8 col-4">
+                                        <h:commandLink class="btn btn-primary ml-3 mt-3" action="#{controllerStudentCV.dodajJezikLink()}" value="Dodaj strani jezik" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-12 mt-3 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h4 class="mt-3">Znanje računarskih programa:</h4>
+                                <hr class="mb-3"/>
+                                <h:outputText rendered="#{empty controllerStudentCV.kompjuterskeVestineLista}" value="Nema unetih racunarskih programa."/>
+                                <div class="row">
+                                    <ui:repeat var="vestina" value="#{controllerStudentCV.kompjuterskeVestineLista}" rendered="#{not empty controllerStudentCV.kompjuterskeVestineLista}">
+
+                                        <div class="col-4 mt-4">
+                                            <strong>Program: </strong> <h:outputText value="#{vestina.program}"/>
+
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <strong>Nivo: </strong> <h:outputText value="#{vestina.nivo}"/>                                                
+                                        </div>
+
+                                        <div class="col-4">
+                                            <h:commandButton value="Obrisi" class="btn btn-danger ml-3 mt-3" action="#{controllerStudentCV.obrisiKompjuterskuVestinu(vestina)}"/>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+                                    <div class="offset-8 col-4">
+                                        <h:commandLink class="btn btn-primary ml-3 mt-3" action="#{controllerStudentCV.dodajKompjuterskuVestinuLink()}" value="Dodaj program" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 mt-3 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h4 class="mt-3">Ostale vestine:</h4>
+                                <hr class="mb-3"/>                                       
+                                <h:inputTextarea class="form-control preformatted" id="ostale-vestine" value="#{controllerStudentCV.studentCV.ostaleVestine}">
+                                    <f:ajax event="change"/>                  
+                                </h:inputTextarea>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="row">
+
+                                    <div class="col-6 mb-4 mt-4 text-center">
+                                        <h:commandButton class="btn btn-danger" value="Odustani" onclick="history.go(-1);return false;"/>
+                                    </div>
+                                    <div class="col-6 mb-4 mt-4 text-center">
+                                        <h:commandButton class="btn btn-primary" value="Snimi CV" action="#{controllerStudentCV.snimiCV()}" onclick="if (confirm('Da li ste sigurni da zelite da snimiti CV?') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <h:messages id="student-kreiraj-cv" class="col-12 mt-3 alert-warning"/>
+                            </div>
+
+
+                        </h:form>
+
+
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+    </h:body>
+</html>

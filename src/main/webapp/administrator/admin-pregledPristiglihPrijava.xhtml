@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pregled ucesnika sajma</title>        
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraAdministrator()}" />
+        </f:metadata>
+    </h:head>
+    <h:body  class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+                    <h:form id="admin-pregled-svih-prijave" enctype="multipart/form-data"> 
+                        <div class="row bg-light ml-2 rounded-sm shadow-sm">
+
+                            <div class="col-12 mt-4">                                                                                                
+                                <h3 class="text-center mb-3"> Pregled Prijava Kompanija:</h3>
+                                
+                                <h:dataTable class="table table-striped" var="prijava_sajam" value="#{controllerAdminPrijave.svePrijave}" columnClasses="align-middle,align-middle,align-middle,align-middle">
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            ID prijave:
+                                        </f:facet>
+                                        #{prijava_sajam.idPrijava}
+
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Naziv Kompanije:
+                                        </f:facet >
+                                        #{controllerAdminPrijave.dohvatiNazivKompanije(prijava_sajam.idKompanija)}
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Status prijave:
+                                        </f:facet>
+                                        <h:outputText rendered = "#{prijava_sajam.status == 'Cekanje'}" value="Na cekanju"/>
+                                        <h:outputText rendered = "#{prijava_sajam.status == 'Odobrena'}" value="Odobrena"/>
+                                        <h:outputText rendered = "#{prijava_sajam.status == 'Odbijena'}" value="Odbijena"/>                                    
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Pregledaj:
+                                        </f:facet>
+                                        <h:commandButton class="btn btn-primary ml-3" value="Pregledaj" action="#{controllerAdminPrijave.pregledajPrijavu(prijava_sajam)}"/>
+
+                                    </h:column>                                                                
+
+                                </h:dataTable>
+
+                            </div>
+
+                        </div>
+                    </h:form>    
+                </div>
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+        
+                <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+
+

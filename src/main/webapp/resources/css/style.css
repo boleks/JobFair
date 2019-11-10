@@ -1,0 +1,44 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 17, 2019, 6:04:10 PM
+    Author     : Neo
+*/
+
+.preformatted {      
+   white-space: pre-wrap;
+   word-break: keep-all
+ }
+ 
+ #kompanija-prijava-na-sajam label{
+ padding-left: 5px;
+ }
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
+
+.container{    
+    padding-bottom: 25px;
+}
+
+.ucesnici{
+    min-width: 245px;
+    min-height: 245px;
+    display: inline-block;    
+    vertical-align: middle;
+}
+
+.pokrovitelji{
+    max-height: 150px;
+    max-width: 150px;        
+}
+
+

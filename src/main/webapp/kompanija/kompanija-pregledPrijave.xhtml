@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pregled prijave</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraKompanija}" />
+        </f:metadata>        
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">                    
+                    <h:form id="kompanija-prijava-na-sajam-pregled" enctype="multipart/form-data">
+
+                        <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                            <div class="col-12 mt-4 mb-3">
+                                <h3 class="text-center">Pregled prijave</h3>
+                            </div>                           
+
+                            <div class="col-12">
+                                <div class="row">
+
+                                    <div class="col-12 ">
+                                        <h4>Naziv:  #{controllerSajamPrijava.sajamInfo.naziv}</h4>                                                                                                                                                              
+                                        <hr class="mb-3"/>
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <p class="preformatted">#{controllerSajamPrijava.sajamInfo.osnovneInformacije}</p>
+
+                                    </div>
+
+                                    <div class="col-12 alert">
+                                        <hr class="mb-3"/>
+                                        <strong>Vreme održavanja:</strong> od <strong>#{controllerSajamPrijava.sajamInfo.datumOd}</strong> do <strong>#{controllerSajamPrijava.sajamInfo.datumDo}</strong>
+                                        <hr class="mb-1"/>
+                                    </div>
+
+                                    <div class="col-12 alert alert-primary mb-2 border border-light rounded">
+                                        <h5 class="mt-3">
+                                            Izabrani paket:
+                                        </h5>
+                                        <hr class="mb-3"/>
+                                        <h5>
+                                            <u>#{controllerSajamPrijava.izabraniPaket.naziv}</u>
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="preformatted mt-3">#{controllerSajamPrijava.izabraniPaket.sadrzaj}</p>
+                                            </div>
+                                            <hr class="col-11 mb-2"/>
+                                            <div class="col-4 mb-1">
+                                                <strong>Broj radionica:</strong> #{controllerSajamPrijava.izabraniPaket.brojRadionica}
+                                            </div>
+                                            <div class="col-4 mb-1">
+                                                <strong>Broj predavanja:</strong> #{controllerSajamPrijava.izabraniPaket.brojPredavanja}
+                                            </div>
+
+                                            <div class="col-4 mb-1">
+                                                <strong>Cena:</strong> #{controllerSajamPrijava.izabraniPaket.cena}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 alert alert-primary mb-2 border border-light rounded">
+                                        <h5 class="mt-3">
+                                            Pregled dostupnih dodataka:
+                                        </h5>
+                                        <hr class="mb-3"/>
+                                        <h:outputText class="h6" rendered="#{empty controllerSajamPrijava.izabraneDodatneUsluge}" value="Nema izabranih dodataka"/>
+                                        <ui:repeat value="#{controllerSajamPrijava.izabraneDodatneUsluge}" var="d">
+
+                                            <h5 class="">
+                                                #{d.naziv}
+                                            </h5>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="preformatted mt-3">#{d.opis}</p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <hr class="mb-2"/>
+                                                </div>
+
+                                                <div class="offset-8 col-4 mb-1">
+                                                    <strong>Cena:</strong> #{d.cena}
+                                                </div>
+
+                                            </div>
+                                            <hr class="mb-3 mt-2"/>
+                                        </ui:repeat>
+                                    </div>
+
+                                    <div class=" offset-7 col-4 alert alert-danger">
+                                        <strong>Ukupna cena: #{controllerSajamPrijava.ukupnaCenaZaPrijavu}</strong>
+                                    </div>                                                                        
+
+                                    <div class="col-12 text-center">
+
+                                        <h:commandButton class="text-center btn btn-primary mb-4 btn-lg btn-block" value="Potvrdi prijavu na sajam" action="#{controllerSajamPrijava.dodajPrijavuNaSajam()}"></h:commandButton>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="kompanija-prijava-na-sajam-pregled" class="offset-2 col-8 alert alert-warning"/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </h:form>
+
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+

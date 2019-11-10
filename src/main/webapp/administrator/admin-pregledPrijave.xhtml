@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pregled pristigle prijave</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraAdministrator()}" />
+        </f:metadata>        
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <h:form id="admin-pregled-prijave" enctype="multipart/form-data">
+
+                        <div class="row bg-light ml-2 rounded-sm shadow-sm">
+
+                            <div class="col-12 mt-4">
+                                <h3 class="text-center">Pregled pristigle prijave</h3>
+                                <h5 class="text-center">ID Prijave :  #{controllerAdminPrijave.pregledPrijave.idPrijava}</h5>
+                                <div class="row alert alert-primary mt-3 mb-2">
+                                    <div class="col-12 mb-3">
+                                        <h5><strong>Naziv kompanije:</strong>   #{controllerAdminPrijave.dohvatiNazivKompanije(controllerAdminPrijave.pregledPrijave.idKompanija)}</h5>                                
+                                    </div>
+                                    <div class="col-12 mb-1">
+                                        <h5><strong>Izabran paket:</strong> #{controllerAdminPrijave.pregledPaket.naziv}</h5>                                
+                                        <hr/>
+                                        <h5>Sadrzaj paketa:</h5>
+                                        <div class="preformatted pl-3">
+                                            <h:outputText value="#{controllerAdminPrijave.pregledPaket.sadrzaj}"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 mb-1 mt-1">                                       
+                                        <hr class="mb-1 mt-1"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong>Broj radionica:</strong> #{controllerAdminPrijave.pregledPaket.brojRadionica}
+                                    </div>
+                                    <div class="col-4 mb-1">
+                                        <strong>Broj predavanja:</strong> #{controllerAdminPrijave.pregledPaket.brojPredavanja}
+                                    </div>
+
+                                    <div class="col-4 mb-1">
+                                        <strong>Cena: </strong> #{controllerAdminPrijave.pregledPaket.cena} dinara.
+                                    </div>           
+                                    <div class="col-12 mb-1 mt-1">                                       
+                                        <hr class="mb-1 mt-1"/>
+                                    </div> 
+
+                                    <div class="col-12 mb-1 mt-2">
+                                        <h5><strong>Pregled izabranih dodataka:</strong></h5>
+                                        <hr class="mb-3 mt-3"/>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <ui:repeat value="#{controllerAdminPrijave.pregledDodatneUsluge}" var="du">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h6>
+                                                                <strong>Naziv dodatka:</strong> #{du.naziv}
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <p class="preformatted"><strong>Opis: </strong> #{du.opis}</p>
+                                                            <hr class="mb-2"/>
+                                                        </div>
+
+
+                                                        <div class="offset-8 col-4 mb-1">
+                                                            <strong>Cena: </strong> #{du.cena} dinara.
+                                                        </div>
+                                                    </div>
+                                                    <hr class="mb-3 mt-2"/>
+
+                                                </ui:repeat>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class=" offset-7 col-4">
+                                        <strong>Ukupna cena: #{controllerAdminPrijave.pregledPrijaveUkupnaCena} din.</strong>
+                                    </div>
+
+                                </div>
+                            </div>                          
+
+                            <div class="col-12 mt-3 text-center">
+
+                                <h:commandButton class="text-center btn btn-danger mb-4" rendered="#{controllerAdminPrijave.pregledPrijave.status == 'Cekanje'}" value="Odbaci prijavu" action="#{controllerAdminPrijave.odbiPrijavuLink()}"/>
+                                <h:commandButton class="text-center btn btn-primary mb-4 ml-3" rendered="#{(controllerAdminPrijave.pregledPrijave.status == 'Cekanje') and (controllerAdminPrijave.paketPopunjeProvera() != true)}" value="Odobri prijavu" action="#{controllerAdminPrijave.odobriPrijavu()}"/>
+
+
+                                <h:outputText class="alert alert-warning" rendered="#{(controllerAdminPrijave.paketPopunjeProvera() == true) and (controllerAdminPrijave.pregledPrijave.status != 'Odobrena')}" value="Dostignut je maksimalan broj prijava za ovaj paket."/>
+                                <h:outputText class="alert alert-warning" rendered="#{controllerAdminPrijave.pregledPrijave.status == 'Odobrena'}" value="Prijava je odobrena."/>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <h:messages id="admin-pregled-prijave" class="col-12 mt-3 alert-warning"/>
+                            </div>
+
+                        </div>
+
+                    </h:form>
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+
+
+
+
+

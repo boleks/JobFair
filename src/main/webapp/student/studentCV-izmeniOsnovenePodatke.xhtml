@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" />
+        <title>Job Fair - CV - Izmeni osnovne podatke</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+        </f:metadata>  
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 ">
+                            <h3 class="text-center">CV - Izmena osnovne podatake:</h3>
+
+                            <h:form id="cv-izmeni-osnovne-podatke" enctype="multipart/form-data">
+                                <div class="row">                                    
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="ime">Ime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="ime" value="#{controllerStudentCVPregled.cvKorisnika.ime}" required="true" requiredMessage="Ime je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="prezime">Prezime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="prezime" value="#{controllerStudentCVPregled.cvKorisnika.prezime}" required="true" requiredMessage="Pezime je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="telefon">Telefon:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="telefon" value="#{controllerStudentCVPregled.cvKorisnika.telefon}" required="true" requiredMessage="Telefon je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="email">Email:</h:outputLabel>
+
+                                        <h:inputText class="form-control" id="email" value="#{controllerStudentCVPregled.cvKorisnika.email}" required="true" requiredMessage="Email je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="grad">Grad:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="grad" value="#{controllerStudentCVPregled.cvKorisnika.grad}" required="true" requiredMessage="Grad studija je obavezno polje"/>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <hr class="mb-4"/>
+                                    </div>
+
+                                    <div class="col-6 mb-3 text-center">
+
+                                        <h:commandButton class="btn btn-danger" value="Odustani" onclick="history.go(-1);return false;"/>
+
+                                    </div>
+                                    <div class="col-6 mb-3 text-center">
+                                        <h:commandButton class="btn btn-primary ml-3" value="Snimi izmenu" action="#{controllerStudentCVPregled.cvIzmenaOsnovnihPodataka()}" onclick="if (confirm('Da li ste sigurni da zelite da izmenite podatke') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>                                        
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="cv-izmeni-osnovne-podatke" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+                                </div>
+
+                            </h:form>
+
+                        </div>                                                                                    
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+

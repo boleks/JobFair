@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair - Student</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+        </f:metadata>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">                   
+
+                    <div class="row bg-light ml-2 rounded shadow-sm">
+                        <div class="col-12 mt-4">
+                            <h3 class="text-center">Izmena podataka:</h3>
+                            <hr/>
+                            <h:form id="izmena-student" enctype="multipart/form-data">
+                                <div class="row">                                    
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="ime">Ime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="ime" value="#{controllerStudent.student.ime}" required="true" requiredMessage="Ime je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="prezime">Prezime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="prezime" value="#{controllerStudent.student.prezime}" required="true" requiredMessage="Pezime je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="telefon">Telefon:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="telefon" value="#{controllerStudent.student.telefon}" required="true" requiredMessage="Telefon je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="email">Email:</h:outputLabel>
+                                        <h:inputText class="form-control" id="email" value="#{controllerStudent.student.email}" required="true" requiredMessage="Email je obavezno polje" validatorMessage="Email nije ispravan.">
+                                        <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="godinaStudija">Godina studija:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="godinaStudija" value="#{controllerStudent.student.godinaStudija}" required="true" requiredMessage="Godina studija je obavezno polje"/>
+                                    </div>
+                                    <div class="col-5 ml-5 mt-4">                                        
+                                        <h:selectBooleanCheckbox class="form-check-input" id="diplomirao" value="#{controllerStudent.diplomiraoChecked}" immediate="#{controllerStudent.student.diplomirao == 'D'}"/>
+                                        <h:outputLabel class="form-check-label" for="diplomirao">Diplomirao</h:outputLabel>
+                                    </div>
+                                    <div class="col-12">
+                                        <hr/>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="slika">Nova slika</h:outputLabel><br/>  
+
+                                        <h:inputFile class="btn" id="slika" value="#{controllerStudent.studentSlika}"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="slika">Trenutna slika</h:outputLabel><br/> 
+
+                                        <h:graphicImage class="img-thumbnail" value="/resources/slike/#{controllerStudent.student.slika}"/>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <hr/>
+                                    </div>
+
+                                    <div class="col-12 mt-3 mb-3 text-center">
+                                        <h:commandButton class="btn btn-danger mr-5" value="Odustani" onclick="history.go(-1);return false;"/>
+                                        <h:commandButton class="btn btn-primary mr-5-3" value="Izmeni" action="#{controllerStudent.izmeniPodatke()}" onclick="if (confirm('Da li ste sigurni da zelite da izmenite podatke') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="izmena-student" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+                                </div>
+
+                            </h:form>
+
+                        </div>                                                                                    
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+

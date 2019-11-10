@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair</title>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark" style="background-image: url(resources/slike/naslovna-job-fair-01.jpg)">
+                        <div class="col-md-6 px-0">
+                            <h1 class="display-4 font-italic font-weight-bold">Job Fair 2019</h1>
+                            <p class="lead my-2 font-weight-bold">Tvoja karijera pocinje ovde. </p><br/><br/><br/><br/><br/>
+
+                            <div class="lead my-2">
+                                <h:link class="btn btn-light text-primary font-weight-bold" outcome="/ucesnici">Pregledaj ucesnike...</h:link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-2 text-primary">Studenti</strong>
+                                    <h3 class="mb-2">Pronadjite zaposlenje</h3>
+                                    <p class="card-text mb-2">Sajam ​''Job Fair – Tvoja karijera počinje ovde!'' ​pružiće studentima i mladim nezaposlenim ljudima da pretraze konkurse za posao i strucnu praksu.</p>
+                                    <h:link class="btn btn-light text-primary font-weight-bold" outcome="/student/student-pretraga-konkursa">Pretrazi konkurse...</h:link>                                    
+                                </div>
+                                <div class="col-auto d-none d-lg-block">
+                                    <img src="resources/slike/student-intervju.jpg" width="210" height="250" class="img-fluid"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-2 text-success">Kompanije</strong>
+                                    <h3 class="mb-2">Pronadjite zaposlene</h3>                                    
+                                    <p class="card-text mb-2">Kompanije ucesnice sajma ''Job Fair'' mogu objaviti konkurse za studentske prakse i zaposlenja. Brzo mogu pregledati pristigle prijave....</p>
+                                    <h:link class="btn btn-light text-primary font-weight-bold" outcome="/kompanija/kompanija-kreirajKonkurs">Kreiraj konkus...</h:link>
+                                </div>
+                                <div class="col-auto d-none d-lg-block">
+                                    <img src="resources/slike/kompanija-intervju.jpg" width="210" height="250" class="img-fluid"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>        
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+

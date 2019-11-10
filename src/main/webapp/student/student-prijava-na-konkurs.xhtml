@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Prijava na Konkursa</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+        </f:metadata>        
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+
+                        <div class="col-12 mt-4 text-center">
+                            <h5>Prijava na konkurs</h5>
+                            <h3>#{controllerStudentKonkursPrijava.studentKonkurs.nazivPozicija}</h3>                                                            
+                        </div>
+
+                        <div class="col-12 mb-1 mt-3">
+
+                            <h4><strong>Lični podaci: </strong></h4>
+                            <hr class="mb-3"/>                        
+                        </div>
+
+                        <div class="col-12">
+                            <strong>Ime i prezime: </strong> <h:outputText value="#{controllerStudentKonkursPrijava.student.ime}"/> <h:outputText value="#{controllerStudentKonkursPrijava.student.prezime}"/>
+                        </div>
+                        <div class="col-12">
+                            <strong>Email: </strong> <h:outputText value="#{controllerStudentKonkursPrijava.student.email}"/>
+                        </div>
+                        <div class="col-12">
+                            <strong>Broj Telefona: </strong> <h:outputText value="#{controllerStudentKonkursPrijava.student.telefon}"/>
+                        </div>
+                        <hr class="col-10"/>
+                        <div class="col-12 mt-1 mb-3">
+                            <h:outputText value="Ukoliko je potrebno vase podatke mozete azurirati "/> <h:link outcome="/student/student-izmena-podataka">ovde.</h:link><br/>
+                            <h:outputText rendered="#{controllerStudentKonkursPrijava.studentImaCV() == true}" value="Vas CV mozete pregledati i azurirati "/><h:link rendered="#{controllerStudentKonkursPrijava.studentImaCV() == true}" outcome="/student/studentCV-pregled" value="ovde."/>
+                            <h:outputText rendered="#{controllerStudentKonkursPrijava.studentImaCV() != true}" value="Morate da popunite CV da bi ste konkurisali. "/> <h:link rendered="#{controllerStudentKonkursPrijava.studentImaCV() != true}" outcome="/student/studentCV-kreiraj" value="Kreiraj CV."/>
+                        </div>                        
+
+                    </div>
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm mt-3">
+
+                        <h:form id="konkurs-prijava" class="col-12">
+
+                            <div class="col-12 mb-1 mt-3">
+
+                                <h4><strong>Propratno pismo: </strong></h4>
+                                <hr class="mb-3"/>                        
+                            </div>
+
+
+                            <div class="col-12 mb-1">
+
+                                <h:inputTextarea rows="10" id="propratno" class="form-control preformatted" value="#{controllerStudentKonkursPrijava.studentPropratnoPismo.propratnoPismo}" required="true" requiredMessage="Propratno pismo je obavezno polje">
+                                    <f:ajax event="change"/>
+                                </h:inputTextarea>
+                            </div>
+
+
+
+                            <hr class="col-10"/>
+
+                            <div class="col-12 d-flex justify-content-center mt-2">
+
+                                <h:commandButton class="btn btn-primary mb-4" rendered="#{controllerStudentKonkursPrijava.studentImaCV() == true}" value="Konkuris" action="#{controllerStudentKonkursPrijava.konkursPrijavaStudent()}"></h:commandButton>
+
+                                <h:outputText class="alert alert-warning mb-4" rendered="#{controllerStudentKonkursPrijava.studentImaCV() != true}" value="Morate prvo popuniti CV da bi ste mogli da konkurisete."/>
+                            </div>                            
+
+
+                        </h:form>
+                    </div>
+
+
+
+
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+    </h:body>
+</html>
+

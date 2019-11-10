@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Ucesnici</title>
+
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-12 mt-4">
+
+                    <div class="row bg-light m-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 mb-3">
+                            <h2 class="text-center">Ucesnici - Job Fair 2019</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="row d-flex">
+
+                                <ui:repeat value="#{controllerPokrovitelji.ucesnici}" var="kompanija">
+
+                                    <div class="col-3 text-center p-3">
+
+                                        <div class="card">
+                                            <div class="ucesnici d-flex align-items-center">
+                                                <h:graphicImage class="card-img p-2" value="/resources/slike/#{kompanija.slika}"/>
+                                            </div>
+                                                
+                                            
+                                                <div class="card-body">
+                                                    <h5 class="card-title">#{kompanija.naziv}</h5>
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                </ui:repeat>    
+
+                            </div>                            
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+
+
+
+
+

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pregled prijava</title>        
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+            <f:event type="preRenderView" listener="#{controllerStudentKonkursPrijava.dohvatiPrijave()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">   
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 mb-3">
+                            <h3 class="text-center">
+                                <h:outputText rendered="#{controllerStudentKonkursPrijava.studentPrijave.size()==0}" value="Nemate prijava"/>
+                                <h:outputText rendered="#{controllerStudentKonkursPrijava.studentPrijave.size() > 0}" value="Pregled prijava:"/>
+                            </h3>                           
+                        </div>
+                        <div class="col-12 text-center">
+                            <h:form id="student-prijave" enctype="multipart/form-data">                                                          
+
+                                <h:dataTable rendered="#{controllerStudentKonkursPrijava.studentPrijave.size()>0}" class="table table-striped table-sm" var="prijava" value="#{controllerStudentKonkursPrijava.studentPrijave}" columnClasses="align-middle,align-middle,align-middle,align-middle,align-middle,align-middle">
+
+                                    <h:column >
+                                        <f:facet name="header">
+                                            ID:
+                                        </f:facet>
+                                        #{prijava.idPrijava}
+                                    </h:column>
+                                    <h:column >
+                                        <f:facet name="header">
+                                            Datum Prijave:
+                                        </f:facet>
+                                        #{prijava.datumPrijave}                            
+                                    </h:column>
+
+                                    <h:column >
+                                        <f:facet name="header">
+                                            Naziv konkursa:
+                                        </f:facet>
+                                        #{controllerStudentKonkursPrijava.dohvatiNazivKonkursa(prijava.idKonkurs)}
+                                    </h:column>
+
+                                    <h:column >
+                                        <f:facet name="header">
+                                            Prijavljeni kandidati:
+                                        </f:facet>                                    
+                                        <h:commandButton class="btn btn-primary ml-3" rendered="true" action="#{controllerStudentKonkursPrijava.pregledKandidata(prijava.idKonkurs)}" value="Kandidati"></h:commandButton>
+                                    </h:column>
+
+                                    <h:column >
+                                        <f:facet name="header">
+                                            Kandidat je izabran:
+                                        </f:facet>                                    
+                                        <h:outputText rendered="#{prijava.izabran == 'D'}" value="Da"/>
+                                        <h:outputText rendered="#{prijava.izabran != 'D'}" value="Ne"/>                                    
+                                    </h:column>
+
+                                    <h:column >
+                                        <f:facet name="header">
+                                            Oceni poslodavca:
+                                        </f:facet>
+                                        <h:commandButton class="btn btn-primary ml-3" rendered="#{controllerStudentKonkursPrijava.oceniUslov(prijava)}" value="Oceni" action="#{controllerStudentKonkursPrijava.oceniPoslodavcaLink(prijava.idKonkurs)}"></h:commandButton>
+
+                                    </h:column>
+
+                                </h:dataTable>
+                            </h:form>
+                        </div>                                                                                    
+                    </div>
+
+                </div>
+
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+    </h:body>
+</html>
+

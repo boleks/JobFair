@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" />        
+
+        <title>JobFair - Sajam 2019</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraAdministrator()}" />
+        </f:metadata>
+
+    </h:head>
+
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header">
+                <ui:include src="/template/headerTemplate.xhtml" ></ui:include>
+            </ui:insert>
+        </div> 
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">                    
+                    <h:form id="sajam-korak-tri" enctype="multipart/form-data">
+                        <div class="row bg-white ml-2 rounded-sm shadow-sm">
+
+
+                            <div class="col-12 pt-4 bg-light pb-3 border border-light rounded shadow-sm">
+                                <h3 class="text-center">Korak 3 - Kreiraj Paket:</h3>
+                                <h4 class="mt-3">Paketi:</h4>                                        
+                                <hr class="mb-3"/>
+                                <h:outputText rendered="#{empty controllerAdminKreirajSajam.paketLista}" value="Nema dodatih paketa."/>                                       
+
+                                <div class="row">
+                                    <ui:repeat var="paket" value="#{controllerAdminKreirajSajam.paketLista}" rendered="#{not empty controllerAdminKreirajSajam.paketLista}">
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Naziv paketa: </strong> <h:outputText value="#{paket.naziv}"/>
+
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Sadrzaj: </strong><br/>
+                                            <h:outputText class="preformatted" value="#{paket.sadrzaj}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Maksimalan broj: </strong> 
+                                            <h:outputText value="#{paket.maxBroj}">                                                        
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Cena: </strong> 
+                                            <h:outputText value="#{paket.cena}">                                                        
+                                            </h:outputText>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Broj radionica: </strong> <h:outputText value="#{paket.brojRadionica}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Broj predavanja: </strong> <h:outputText value="#{paket.brojPredavanja}"/>
+                                        </div>
+                                        <div class="offset-8 col-4 mb-1">
+                                            <h:commandButton value="Obrisi" class="btn btn-danger ml-3 mt-3" action="#{controllerAdminKreirajSajam.obrisiPaketizListe(paket)}"/>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+
+                                    <div class="offset-8 col-4 mb-1">                                        
+                                        <h:commandLink class="btn btn-primary ml-3 mt-1" action="#{controllerAdminKreirajSajam.dodajPaketLink()}" value="Dodaj novi paket"/>
+                                    </div>
+                                </div>                               
+
+                            </div>
+
+                            <div class="col-12 bg-light mt-3 pb-3 border border-light rounded shadow-sm">
+                                <h4 class="mt-3">Dodatne usluge:</h4>                                        
+                                <hr class="mb-3"/>
+                                <h:outputText rendered="#{empty controllerAdminKreirajSajam.dodatneUslugeLista}" value="Nema dodatih paketa."/>                                       
+
+                                <div class="row">
+                                    <ui:repeat var="dodatak" value="#{controllerAdminKreirajSajam.dodatneUslugeLista}" rendered="#{not empty controllerAdminKreirajSajam.dodatneUslugeLista}">
+
+                                        <div class="col-6 mb-1">
+                                            <strong>Naziv Dodatne usluge: </strong> <h:outputText value="#{dodatak.naziv}"/>
+
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Opis Dodatne usluge: </strong><br/>
+                                            <h:outputText class="preformatted" value="#{dodatak.opis}"/>                                                
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <strong>Cena: </strong> 
+                                            <h:outputText value="#{dodatak.cena}">                                                        
+                                            </h:outputText>                                                
+                                        </div>
+                                        <div class="offset-8 col-4 mb-1">
+                                            <h:commandButton value="Obrisi" class="btn btn-danger ml-3 mt-3" action="#{controllerAdminKreirajSajam.obrisiDodatnuUsluguizListe(dodatak)}"/>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <hr class="mb-3"/>
+                                        </div>
+                                    </ui:repeat>
+                                    <div class="offset-8 col-4 mb-1">
+                                        <h:commandButton class="btn btn-primary ml-3 mt-1" action="#{controllerAdminKreirajSajam.dodajDodatneUslugeLink()}" value="Dodaj Dodatnu uslugu"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6 mb-4 mt-5 text-center">                                
+                                <h:commandButton class="btn btn-danger" value="Odustani" action="#{controllerAdminKreirajSajam.odustaniLink()}"/>
+                            </div>
+                            <div class="col-6 mb-4 mt-5 text-center">
+                                <h:commandButton class="btn btn-primary" value="Finalizuj kreiranje sajma" action="#{controllerAdminKreirajSajam.snimiSajam()}" onclick="if (confirm('Da li ste ispravno uneli podatke') == false)
+                                            return false">
+                                    <f:ajax execute="@form" render="@form"></f:ajax>
+                                </h:commandButton>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <h:messages id="paket-dodaj-paket" class="col-12 mt-3 alert-warning"></h:messages>
+                            </div>
+
+                        </div>
+                    </h:form>
+                </div>
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni">
+                        <ui:include src="/template/desniMeniTemplate.xhtml"></ui:include>
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+

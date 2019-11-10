@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <title>Job Fair</title>        
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container bg-light rounded shadow mb-3">
+
+            <div class="row bg-light rounded-sm shadow- sm">
+                <div class="col-12 mt-4 h3 text-center">
+                    Registracija korisnika
+                </div>
+
+                <div class="offset-2 col-8 mt-3 bg-white border rounded-sm shadow-sm">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs mt-2">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home">Student</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu1">Kompanija</a>
+                        </li>    
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div id="home" class="container tab-pane active">
+
+                            <h:form id="registracija-student" enctype="multipart/form-data">
+                                <div class="row">
+
+                                    <div class="col-6 mb-3 mt-4">
+                                        <h:outputLabel for="korisnickoIme">Korisnicko ime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="korisnickoIme" value="#{controllerRegistracija.student.korisnickoIme}" required="true" requiredMessage="Korisnicko ime je obavezno polje">                                            
+
+                                        </h:inputText>
+                                        <h:outputText rendered="#{controllerRegistracija.korisnikPostoji == true}" value="Korisnicko ime je vec zauzeto."/>
+
+                                    </div>
+                                    <div class="col-6 mb-3 mt-4">
+                                        <h:outputLabel for="lozinka">Lozinka:</h:outputLabel>  
+                                        <h:inputSecret class="form-control" id="lozinka" value="#{controllerRegistracija.student.lozinka}" required="true" requiredMessage="Lozinka je obavezno polje" validatorMessage="Lozinka mora sadrzati najmanje jedno malo slovo, jedno veliko slovo, jedan broj i jedan spedijalni karakter ('!@#$%'). Minimalan broj karaktera je 8, a maksimalan 12.">
+                                                <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,12})" />
+                                        </h:inputSecret>
+                                    </div>
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="ime">Ime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="ime" value="#{controllerRegistracija.student.ime}" required="true" requiredMessage="Ime je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="prezime">Prezime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="prezime" value="#{controllerRegistracija.student.prezime}" required="true" requiredMessage="Pezime je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="telefon">Telefon:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="telefon" value="#{controllerRegistracija.student.telefon}" required="true" requiredMessage="Telefon je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="email">Email:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="email" value="#{controllerRegistracija.student.email}" required="true" requiredMessage="Email je obavezno polje" validatorMessage="Email nije ispravan.">
+                                            <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="godinaStudija">Godina studija:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="godinaStudija" value="#{controllerRegistracija.student.godinaStudija}" required="true" requiredMessage="Godina studija je obavezno polje"/>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="slika">Slika:</h:outputLabel><br/>
+                                        <h:inputFile class="btn form-control-file" id="slika" value="#{controllerRegistracija.slikaStudent}" required="true" requiredMessage="Slika je obavezno polje"/>
+                                    </div>
+
+                                    <div class="form-check col-12 ml-3 mb-3">
+
+                                        <h:selectBooleanCheckbox class="form-check-input" id="diplomirao" value="#{controllerRegistracija.diplomiraoChecked}"/>
+                                        <h:outputLabel class="form-check-label" for="diplomirao">Diplomirao</h:outputLabel>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:commandButton class="btn btn-primary btn-lg btn-block" value="Registruj se" action="#{controllerRegistracija.registracijaStudent()}" >
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="registracija-student" class="offset-2 col-8 alert alert-warning"/>
+                                    </div>
+                                </div>
+
+                            </h:form>
+
+                        </div>
+                        <div id="menu1" class="container tab-pane fade">
+
+                            <h:form id="registracija-kompanija" enctype="multipart/form-data">
+                                <div class="row">
+
+                                    <div class="col-6 mb-3 mt-4">
+                                        <h:outputLabel for="korisnickoIme">Korisnicko ime:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="korisnickoIme"  value="#{controllerRegistracija.kompanija.korisnickoIme}" required="true" requiredMessage="Korisnicko ime je obavezno polje">                                            
+
+                                        </h:inputText>
+                                        <h:outputText rendered="#{controllerRegistracija.korisnikPostojiK == true}" value="Korisnicko ime je vec zauzeto."/>
+
+                                    </div>
+                                    <div class="col-6 mb-3 mt-4">
+                                        <h:outputLabel for="lozinka">Lozinka:</h:outputLabel>  
+                                        <h:inputSecret class="form-control" id="lozinka" value="#{controllerRegistracija.kompanija.lozinka}" required="true" requiredMessage="Lozinka je obavezno polje" validatorMessage="Lozinka mora sadrzati najmanje jedno malo slovo, jedno veliko slovo, jedan broj i jedan spedijalni karakter ('!@#$%'). Minimalan broj karaktera je 8, a maksimalan 12.">
+                                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,12})" />
+                                        </h:inputSecret>
+                                    </div>
+
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="naziv">Naziv:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="naziv" value="#{controllerRegistracija.kompanija.naziv}" required="true" requiredMessage="Naziv je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="pib">PIB:</h:outputLabel>                                    
+                                        <h:inputText class="form-control" id="pib" value="#{controllerRegistracija.kompanija.pib}" required="true" requiredMessage="PIB je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="grad">Grad:</h:outputLabel>  
+                                        <h:selectOneMenu class="custom-select d-block w-100" id="grad" value="#{controllerRegistracija.kompanija.grad}" required="true" requiredMessage="Grad je obavezno polje">
+                                            <f:selectItems value="#{controllerRegistracija.gradovi}" var="g" itemLabel="#{g.naziv}" itemValue="#{g.idGrad}"/> 
+                                        </h:selectOneMenu>
+
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="adresa">Adresa:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="adresa" value="#{controllerRegistracija.kompanija.adresa}" required="true" requiredMessage="Adresa je obavezno polje"/>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="direktor">Direktor:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="direktor" value="#{controllerRegistracija.kompanija.direktor}" required="true" requiredMessage="Direktor je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">                                        
+                                        <h:outputLabel for="brojzaposlenih">Trenutni broj zaposlenih:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="brojzaposlenih" value="#{controllerRegistracija.kompanija.brojZaposlenih}"  required="true" requiredMessage="Broj zaposlenih je obavezno polje"/>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="email">E-mail:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="email" value="#{controllerRegistracija.kompanija.email}" required="true" requiredMessage="Email je obavezno polje" validatorMessage="Email nije ispravan.">
+                                        <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="websajt">Web sajt:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="websajt" value="#{controllerRegistracija.kompanija.websajt}" required="true" requiredMessage="Web sajt je obavezno polje"/>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="delatnost">Delatnost:</h:outputLabel>
+                                        <h:selectOneMenu class="custom-select d-block w-100"  id="delatnost" value="#{controllerRegistracija.kompanija.delatnost}" required="true" requiredMessage="Delatnost je obavezno polje">
+                                            <f:selectItems value="#{controllerRegistracija.delatnosti}" var="d" itemLabel="#{d.naziv}" itemValue="#{d.idDelatnost}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="uzadelatnost" >Uza delatnost:</h:outputLabel>                                        
+                                        <h:inputText class="form-control" id="uzadelatnost" value="#{controllerRegistracija.kompanija.uzaDelatnost}" required="true" requiredMessage="Uza delatnost je obavezno polje">                                            
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="slika-kompanija">Slika:</h:outputLabel> <br/>
+                                        <h:inputFile class="btn form-control-file" id="slika-kompanija" value="#{controllerRegistracija.slikaKompanija}" required="true" requiredMessage="Slika je obavezno polje"/>
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <h:commandButton class="btn btn-primary btn-lg btn-block" value="Registruj se" action="#{controllerRegistracija.registracijaKompanija()}" >
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="registracija-kompanija" class="offset-2 col-8 alert alert-warning"/>
+                                    </div>
+                                </div>
+
+                            </h:form>
+
+                        </div>          
+                    </div>
+                </div>
+            </div>
+
+
+        </div>      
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
+

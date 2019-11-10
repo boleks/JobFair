@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair - Student</title>                            
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />            
+        </f:metadata>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm pb-5">
+                        <div class="col-12 mt-4 h3 text-center">
+                            Dobro dosli #{controllerStudent.imePrezimeStudenta()}
+                        </div>
+
+
+                        <div class="col-6 mt-4">
+                            <div class="card">
+
+                                <div class="card-header bg-primary text-white">
+                                    Korisnicki nalog:
+                                </div>
+
+                                <div class="card-body">
+                                    <h:link class="btn btn-primary" outcome="/student/student-izmena-podataka" value="Izmeni podatake"/>
+                                    <h:link class="btn btn-primary ml-2" outcome="/student/student-promena-lozinke" value="Promeni lozinku"/>    
+                                </div>
+
+                            </div>     
+                        </div>  
+
+                        <div class="col-6 mt-4">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    CV:
+                                </div>
+                                <div class="card-body">
+                                    <h:link class="btn btn-primary" rendered="#{controllerStudent.studentImaCV() != true}" outcome="/student/studentCV-kreiraj" value="Kreiraj CV"/>
+                                    <h:link class="btn btn-info" rendered="#{controllerStudent.studentImaCV() == true}" disabled="true" value="Kreiraj CV"/>
+                                    <h:link class="btn btn-primary ml-2"  rendered="#{controllerStudent.studentImaCV() == true}" outcome="/student/studentCV-pregled" value="Pregledaj CV"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-6 mt-3">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    Pretraga:
+                                </div>
+                                <div class="card-body">
+                                    <h:link class="btn btn-primary" outcome="/student/student-pretraga-kompanija" value="Kompanija"/>
+                                    <h:link class="btn btn-primary ml-2" outcome="/student/student-pretraga-konkursa" value="Konkursa"/>        
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 mt-3">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                Prijave:    
+                                </div>
+                                <div class="card-body">
+                                    <h:link class="btn btn-primary" outcome="/student/student-prijave" value="Moje prijave"/>
+                                </div>                                
+                            </div>                                                                                        
+                        </div>
+
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+                
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+
+    </h:body>
+</html>
+

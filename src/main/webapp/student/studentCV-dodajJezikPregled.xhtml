@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair - Student - CV - Strani jezik</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+        </f:metadata>  
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 ">
+                            <h3 class="text-center">Dodaj Strani jezik:</h3>    
+                            <h:form id="student-dodaj-jezik" enctype="multipart/form-data">
+                                <div class="row ">                                    
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="jezik">Strani jezik:</h:outputLabel>  
+                                        <h:inputText class="form-control"  id="jezik" value="#{controllerStudentCVPregled.jezikIzmena.naziv}" required="true" requiredMessage="Naziv je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="nivo">Nivo:</h:outputLabel>
+                                        <br class="mb-4"/>
+                                        <h:selectOneMenu class="form-control" id="nivo" value="#{controllerStudentCVPregled.jezikIzmena.nivo}" required="true" requiredMessage="Nivo je obavezno polje">
+
+                                            <f:selectItem itemValue = "Pocetni" itemLabel = "Pocetni" /> 
+                                            <f:selectItem itemValue = "Srednji" itemLabel = "Srednji" /> 
+                                            <f:selectItem itemValue = "Visi" itemLabel = "Visi" /> 
+                                        </h:selectOneMenu>                                        
+                                    </div>                                                                       
+
+                                    <div class="col-12">
+                                        <hr class="mb-4"/>    
+                                    </div>
+
+                                    <div class="col-6 mb-3 text-center">
+
+                                        <h:commandButton class="btn btn-danger" value="Odustani" onclick="history.go(-1);return false;"/>
+
+                                    </div>
+
+                                    <div class="col-6 mb-3 text-center">
+                                        <h:commandButton class="btn btn-primary" value="Dodaj" action="#{controllerStudentCVPregled.dodajJezik()}" onclick="if (confirm('Da li ste ispravno uneli sve podatke?') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="student-dodaj-jezik" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+
+                                </div>                            
+                            </h:form>
+                        </div>                                                                                    
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>

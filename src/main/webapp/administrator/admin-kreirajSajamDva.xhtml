@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" />        
+
+        <title>JobFair - Sajam 2019</title>
+
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraAdministrator()}" />
+        </f:metadata>
+
+    </h:head>
+
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header">
+                <ui:include src="/template/headerTemplate.xhtml" ></ui:include>
+            </ui:insert>
+        </div> 
+
+
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-white ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 pt-4 bg-light pb-3 border border-light rounded shadow-sm">
+                            <h3 class="text-center">Kreiraj  Sajam - Korak 2</h3>
+                            <h:form id="admin-kreiraj-sajam-korak-dva" enctype="multipart/form-data">
+                                <div class="row ">
+                                    <div class="col-12 table-responsive">
+                                        <h:dataTable class="table table-striped mt-3 text-center" value="#{controllerAdminKreirajSajam.satnicaLista}" var="satnica" columnClasses="align-middle,align-middle,align-middle,align-middle">
+
+                                            <h:column>
+                                                <f:facet name="header" >
+                                                    Datum:
+                                                </f:facet>                                               
+                                                <h:outputText value="#{satnica.datum}">                                            
+                                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                                </h:outputText>
+
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header" >
+                                                    Vreme:
+                                                </f:facet>
+                                                <h:outputText value="#{satnica.vreme}"/>                                                                                            
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header" >
+                                                    Tip:
+                                                </f:facet>
+                                                <h:selectOneMenu class="custom-select d-block w-100" value="#{satnica.tip}">
+
+                                                    <f:selectItem itemLabel="Radioni" itemValue="Radionica"/>
+                                                    <f:selectItem itemLabel="Predavanje" itemValue="Predavanje"/>
+                                                    <f:selectItem itemLabel="Prezentacija" itemValue="Prezentacija"/>
+                                                </h:selectOneMenu>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header" >
+                                                    Mesto odrzavanje:
+                                                </f:facet>
+                                                <h:inputText class="form-control" value="#{satnica.mestoOdrzavanja}"/>
+
+                                            </h:column>
+
+                                        </h:dataTable>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <hr class="mb-3"/>
+                                    </div>
+
+                                    <div class="col-6 mb-4 mt-4 text-center">
+                                        <h:commandButton class="btn btn-danger" value="Odustani" action="#{controllerAdminKreirajSajam.odustaniLink()}"/>
+                                    </div>
+
+                                    <div class="col-6 mb-4 mt-4 text-center">                                        
+                                        <h:commandButton class="btn btn-primary" value="Korak 3" action="#{controllerAdminKreirajSajam.sajamKorakTri()}" onclick="if (confirm('Da li ste ispravno uneli sve podatke?') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="admin-kreiraj-sajam-korak-dva" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+
+                                </div>                            
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni">
+                        <ui:include src="/template/desniMeniTemplate.xhtml"></ui:include>
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+

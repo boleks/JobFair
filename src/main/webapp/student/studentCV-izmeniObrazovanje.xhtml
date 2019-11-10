@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" />
+        <!-- DatePicker JavaScript & CSS -->
+        <h:outputScript library="js" name="jquery-1.12.4.js"/>
+        <h:outputScript library="js" name="jquery-ui-1.12.1.js"/>
+        <h:outputStylesheet library="css" name="jquery-ui.css"/>   
+
+        <title>Job Fair - Student - CV - Izmeni Obrazovanje</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraStudent}" />
+        </f:metadata>  
+
+        <!-- DatePicker settings -->
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1970:2031"
+                });
+            });
+
+        </script>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container shadow bg-white rounded rounded-sm">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                        <div class="col-12 mt-4 ">
+
+                            <h3 class="text-center">Izmeni Obrazovanje:</h3>
+
+                            <h:form id="student-izmeni-obrazovanje" enctype="multipart/form-data">
+                                <div class="row ">                                    
+
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="naziv-skole">Naziv-Skole:</h:outputLabel>  
+                                        <h:inputText class="form-control"  id="naziv-skole" value="#{controllerStudentCVPregled.obrazovanjeIzmena.nazivSkole}" required="true" requiredMessage="Naziv skole je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3"> 
+                                        <h:outputLabel for="smer">Smer:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="smer" value="#{controllerStudentCVPregled.obrazovanjeIzmena.smer}" required="true" requiredMessage="Smer je obavezno polje">
+
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="datum-od">Datum upisa: (dd-mm-gggg)</h:outputLabel>
+                                        <h:inputText class="form-control datepicker" id="datum-od" value="#{controllerStudentCVPregled.obrazovanjeIzmena.datumOd}" required="true" requiredMessage="Datum je obavezan je obavezno polje">
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+                                    </div>
+
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="datum-do">Datum zavrsetka: (dd-mm-gggg)</h:outputLabel>
+                                        <h:inputText class="form-control datepicker" id="datum-do" value="#{controllerStudentCVPregled.obrazovanjeIzmena.datumDo}" required="true" requiredMessage="Datum je obavezan je obavezno polje">
+                                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="grad">Grad:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="grad" value="#{controllerStudentCVPregled.obrazovanjeIzmena.grad}" required="true" requiredMessage="Grad je obavezno polje">                                        
+                                        </h:inputText>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h:outputLabel for="zemlja">Zemlja:</h:outputLabel>  
+                                        <h:inputText class="form-control" id="zemlja" value="#{controllerStudentCVPregled.obrazovanjeIzmena.zemlja}" required="true" requiredMessage="Zemlja je obavezno polje">                                        
+                                        </h:inputText>
+                                    </div>                                   
+
+                                    <div class="col-12">
+                                        <hr class="mb-4"/>
+                                    </div>
+
+                                    <div class="col-6 mb-3 text-center">
+
+                                        <h:commandButton class="btn btn-danger" value="Odustani" onclick="history.go(-1);return false;"/>
+
+                                    </div>
+
+                                    <div class="col-6 mb-3 text-center">
+                                        <h:commandButton class="btn btn-primary" value="Snimi izmenu" action="#{controllerStudentCVPregled.izmeniObrazovanje()}" onclick="if (confirm('Da li ste ispravno uneli sve podatke?') == false)
+                                                    return false">
+                                            <f:ajax execute="@form" render="@form" />
+                                        </h:commandButton>                                        
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h:messages id="student-izmeni-obrazovanje" class="col-12 mt-3 alert-warning"/>
+                                    </div>
+
+                                </div>                            
+                            </h:form>
+                        </div>                                                                                    
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>

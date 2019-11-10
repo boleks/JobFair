@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Prijava na sajam</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraKompanija}" />
+        </f:metadata>        
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <h:form id="kompanija-prijava-na-sajam" enctype="multipart/form-data">
+
+                        <div class="row bg-light ml-2 rounded-sm shadow-sm">
+                            <div class="col-12 text-center mt-4 mb-3">
+                                <h3 >Prijava na sajam</h3>
+                            </div>                                                                                        
+                            <div class="col-4 mb-3">
+                                <h5>Izaberite sajam</h5>
+                            </div>
+                            <div class="col-5 mb-3">
+                                <h:selectOneMenu class="form-control" id="sajam" 
+                                                 value="#{controllerSajamPrijava.sajamPrijava.idSajam}"
+                                                 valueChangeListener="#{controllerSajamPrijava.osveziPodatkeZaSajam}"
+                                                 onchange="submit()">
+                                    <f:selectItem itemLabel="--select one--" noSelectionOption="true" />
+                                    <f:selectItems class="form-text" value="#{controllerSajamPrijava.sajmovi}" var="s" itemLabel="#{s.naziv}" itemValue="#{s.idSajam}"/> 
+                                </h:selectOneMenu>
+                            </div>
+
+                        </div>
+
+                        <div class="row ml-2 mt-3 pt-3 pb-1 border border-light rounded shadow-sm">
+
+                            <div class="col-12 ">
+                                <h4>Naziv:  #{controllerSajamPrijava.sajamInfo.naziv}</h4>                                                                                                                                                              
+                                <hr class="mb-3"/>
+                            </div>
+
+                            <div class="col-12">
+                                                               
+                                <div class="preformatted"><h:outputText value="#{controllerSajamPrijava.sajamInfo.osnovneInformacije}"/></div>
+
+
+
+                            </div>
+
+                            <div class="col-12 alert">
+                                <hr class="mb-3"/>
+                                <strong>Vreme održavanja:</strong> od <strong>#{controllerSajamPrijava.sajamInfo.datumOd}</strong> do <strong>#{controllerSajamPrijava.sajamInfo.datumDo}</strong>
+                                <hr class="mb-1"/>
+                            </div>
+
+                            <div class="col-12 mb-2 border border-light rounded bg-light">
+                                <h5 class="mt-3">
+                                    Pregled dostupnih paketa:
+                                </h5>
+                                <hr class="mb-3"/>
+                                <ui:repeat value="#{controllerSajamPrijava.paketi}" var="p">
+
+                                    <h5 class="">
+                                        <u>#{p.naziv}</u>
+                                    </h5>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="preformatted mt-3">#{p.sadrzaj}</p>
+                                        </div>
+                                        <hr class="col-11 mb-2"/>
+                                        <div class="col-4 mb-1">
+                                            <strong>Broj radionica:</strong> #{p.brojRadionica}
+                                        </div>
+                                        <div class="col-4 mb-1">
+                                            <strong>Broj predavanja:</strong> #{p.brojPredavanja}
+                                        </div>
+
+                                        <div class="col-4 mb-1">
+                                            <strong>Cena:</strong> #{p.cena}
+                                        </div>
+
+                                    </div>
+                                    <hr class="mb-3 mt-2"/>
+
+
+                                </ui:repeat>
+                            </div>
+
+                            <div class="col-12 mt-3 pb-2 border border-light rounded shadow-sm bg-light">
+                                <h5 class="mt-3">
+                                    Pregled dostupnih dodataka:
+                                </h5>
+                                <hr class="mb-3"/>
+                                <ui:repeat value="#{controllerSajamPrijava.dodatneUsluge}" var="d">
+
+                                    <h5 class="">
+                                        #{d.naziv}
+                                    </h5>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="preformatted mt-3">#{d.opis}</p>
+                                        </div>
+                                        <hr class="col-11 mb-2"/>
+
+                                        <div class="offset-8 col-4 mb-1">
+                                            <strong>Cena:</strong> #{d.cena}
+                                        </div>
+
+                                    </div>
+                                    <hr class="mb-3 mt-2"/>
+
+                                </ui:repeat>
+                            </div>
+
+                        </div>
+
+                        <div class="row ml-2 border border-light rounded shadow-sm">
+
+                            <div class="col-12 mt-2">
+
+                                <h3 class="text-center">Popunite prijavu:</h3>                                                                    
+                                <hr class="mb-3 mt-2"/>
+                            </div>
+
+                            <div class="col-12">
+                                <h4>Izaberite paket</h4>
+                            </div>
+                            <div class="col-12 form-group">
+                                <h:selectOneRadio class="form-check" id="paketId" 
+                                                  value="#{controllerSajamPrijava.sajamPrijava.idPaket}" layout="pageDirection" required="true" requiredMessage="Morate izavrati paket.">                                
+                                    <f:selectItems itemDisabled="#{controllerSajamPrijava.paketPopunjeProvera(p) == true}" value="#{controllerSajamPrijava.paketi}" var="p" itemLabel="#{p.naziv}" itemValue="#{p.idPaket}" itemDescription="#{p.sadrzaj}">
+                                    </f:selectItems>
+                                </h:selectOneRadio>
+                            </div>
+
+                            <div class="col-12 mt-2">
+                                <hr class="mb-3 mt-2"/>
+                                <h4>Izaberite dodatnu uslugu</h4>                                 
+                            </div>
+                            <div class="col-12">
+                                <h:selectManyCheckbox class="form-check" id="dodatnaUslugaId" 
+                                                      value="#{controllerSajamPrijava.selektovaneDodatneUsluge}" layout="pageDirection">
+                                    <f:selectItems value="#{controllerSajamPrijava.dodatneUsluge}" var="du" itemLabel="#{du.naziv}" itemValue="#{du.idDodatak}" class="ml-2" />
+
+                                </h:selectManyCheckbox>
+                            </div>
+                            <div class="col-12 text-center">
+                                <hr class="mb-3 mt-2"/>
+                                <h:commandButton class="text-center btn btn-primary mb-4 btn-lg btn-block" value="Prijavi se na sajam" action="#{controllerSajamPrijava.pregledPrijave()}"></h:commandButton>
+                            </div>
+                            
+                        </div>
+
+                    </h:form>
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+
+
+
+
+

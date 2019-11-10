@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" />
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>JobFair - Pregled satnice sajma</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraAdministrator()}" />
+
+        </f:metadata>        
+    </h:head>
+    <h:body class="bg-light">
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+        <div class="container shadow bg-white rounded rounded-sm">
+            <div class="row">
+                <div class="col-8 mt-4">
+
+                    <h:form id="admin-pregled-prijave" enctype="multipart/form-data">
+
+                        <div class="row mt-3 ml-2 pt-3 pb-1 border border-light rounded shadow-sm">
+                            <div class="col-5 mt-2 mb-3 text-center">
+                                <h5 class="">Izaberite sajam:</h5>
+                            </div>
+                            <div class="col-5 mt-1 mb-3">
+                                <h:selectOneMenu  class="form-control" id="sajam" 
+                                                  value="#{controllerAdminPregled.idSajamSatnica}"
+                                                  valueChangeListener="#{controllerAdminPregled.osveziPodatkeZaSajamSatnica}"
+                                                  onchange="submit()">                                    
+                                    <f:selectItem itemLabel="--izaberi sajam--"  noSelectionOption="true" itemValue="0"/>
+                                    <f:selectItems  value="#{controllerAdminPregled.sviSajmovi}" var="s" itemLabel="#{s.naziv}" itemValue="#{s.idSajam}"/>                                    
+                                </h:selectOneMenu>
+                            </div>
+
+                        </div>
+
+                        <div class="row bg-light ml-2 rounded-sm shadow-sm">
+
+                            <div class="col-12 mt-4">                                                                                                
+                                <h3 class="text-center mb-3"> Pregled ucesnika sajma:</h3>
+                                <h:dataTable  class="table table-striped" var="satnica" value="#{controllerAdminPregled.satnicaSajam}" columnClasses="align-middle,align-middle,align-middle,align-middle,align-middle,align-middle">
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Datum:
+                                        </f:facet>
+                                        #{satnica.datum}
+
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Vreme:
+                                        </f:facet>
+                                        #{satnica.vreme}
+
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Tip:
+                                        </f:facet>
+                                        #{satnica.tip}
+
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Status:
+                                        </f:facet>
+                                        #{satnica.status}
+
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Mesto:
+                                        </f:facet >
+                                        #{satnica.mestoOdrzavanja}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            Izmeni:
+                                        </f:facet >
+                                        <h:commandButton class="btn btn-primary ml-3" value="Izmeni" action="#{controllerAdminPregled.izmeniSatnicuLink(satnica)}"/>
+                                    </h:column>                                                             
+
+                                </h:dataTable>
+
+                            </div>
+
+                        </div>                        
+
+                    </h:form>
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
+
+
+
+
+

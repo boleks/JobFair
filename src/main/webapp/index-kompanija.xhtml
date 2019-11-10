@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    <h:head>
+        <h:outputStylesheet library = "css" name = "bootstrap.css" /> 
+        <h:outputStylesheet library = "css" name = "style.css" /> 
+        <title>Job Fair - Kompanija</title>
+        <f:metadata>    
+            <f:viewAction action="#{contollerPristup.proveraKompanija()}" />            
+        </f:metadata>
+    </h:head>
+    <h:body class="bg-light">
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/template/headerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div class="container bg-white rounded shadow">
+
+            <div class="row">
+
+                <div class="col-8 mt-4">
+
+
+
+                    <div class="row bg-light ml-2 rounded-sm shadow-sm pb-5">
+                        <div class="col-12 mt-4 h3 text-center">
+                            Dobro dosli #{controllerKompanija.nazivKompanija()}
+                        </div>
+
+                        <div class="col-6 mt-4">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    Korisnicki nalog:
+                                </div>
+                                <div class="card-body">                                    
+                                    <h:link class="btn btn-primary" outcome="/kompanija/kompanija-izmena-podataka" value="Izmeni podatake"/>
+                                    <h:link class="btn btn-primary ml-2" outcome="/kompanija/kompanija-promena-lozinke" value="Promeni lozinku"/>    
+                                </div>
+                            </div>     
+                        </div>
+
+                        <div class="col-6 mt-4">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    Konkurs:
+                                </div>
+                                <div class="card-body">
+                                    <h:link class="btn btn-primary" outcome="/kompanija/kompanija-kreirajKonkurs" value="Kreiraj"/>      
+                                    <h:link class="btn btn-primary ml-2" outcome="/kompanija/kompanija-pregledKonkursa" value="Pregledaj prijave"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-6 mt-3">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    Sajam zaposljavanja:
+                                </div>
+                                <div class="card-body">
+                                    <h:link class="btn btn-primary" rendered="#{controllerSajamPrijava.kompanijaImaPrijavuZaSajam()}" outcome="/kompanija/kompanija-prijava-na-sajam" value="Podnesi prijavu"/>
+                                    <h:link class="btn btn-primary ml-2" rendered="#{controllerSajamPrijava.kompanijaImaPrijavuZaSajam()}" outcome="/kompanija/kompanija-statusPrijaveSajam" value="Status prijave"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-4 ">
+
+                            
+                        </div>                                                                                    
+                    </div>                                
+                </div>
+
+                <div id="desni-meni" class="col-4 mt-4">
+
+                    <ui:insert name="desnimeni" >
+                        <ui:include src="/template/desniMeniTemplate.xhtml" />
+                    </ui:insert>
+
+                </div>
+
+            </div>
+
+        </div>
+                
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/template/footerTemplate.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+</html>
